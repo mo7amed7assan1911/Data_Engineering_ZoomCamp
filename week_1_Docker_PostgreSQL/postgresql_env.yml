@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  pgServer:
+    container_name: pgServer
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - pg-volume:/var/lib/postgresql/data
+    networks:
+      - pg-network
+    ports:
+      - "5432:5432"
+  
+
+  client:
+    container_name: pgAdmin
+    image: dpage/pgadmin4
+    depends_on:
+      - pgServer
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=mo7amed7assan1911@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgadmin-volume:/var/lib/pgadmin4
+    networks:
+      - pg-network
+    ports:
+      - "8080:80"
+
+
+volumes:
+  pgadmin-volume:
+  pg-volume:
+
+networks:
+  pg-network:

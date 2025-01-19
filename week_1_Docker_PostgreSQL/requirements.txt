@@ -1,0 +1,4 @@
+pandas==2.2.3
+psycopg2==2.9.10
+sqlalchemy==2.0.37
+sqlalchemy_utils==0.41.2
