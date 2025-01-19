@@ -15,16 +15,19 @@ docker-compose -f postgres_env.yml up -d
 🚀 To run the code outside a docker container, Run the following command:
 
 ```bash
-trips_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
+trips_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz"
+zones_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv"
 
-python ingest_data.py \
+python pipeline.py \
     --user=root \
     --password=mypass \
     --host=localhost \
     --port=5432 \
-    --db=taxi_dataset \
-    --table_name="taxi_trips" \
+    --db=ny_taxi \
+    --trips_table_name="taxi_trips" \
+    --zones_table_name="taxi_zones" \
     --trips_data_url=${trips_url} \
+    --zones_data_url=${zones_url}
 ```
 
 
@@ -37,14 +40,17 @@ docker build -t data_ingestion .
 then run this command to run the application:
 
 ```bash
-trips_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
+trips_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz"
+zones_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv"
 
 docker run -it --network data_engineering_zoomcamp_pg-network data_ingestion \
     --user=root \
     --password=mypass \
     --host=pgServer \
     --port=5432 \
-    --db=taxi_dataset \
-    --table_name="taxi_trips" \
+    --db=ny_taxi \
+    --trips_table_name="taxi_trips" \
+    --zones_table_name="taxi_zones" \
     --trips_data_url=${trips_url} \
+    --zones_data_url=${zones_url}
 ```

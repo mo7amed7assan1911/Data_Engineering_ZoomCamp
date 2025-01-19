@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.12.8
 
 RUN apt-get install wget
 
